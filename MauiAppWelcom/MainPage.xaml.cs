@@ -1,4 +1,6 @@
-﻿namespace MauiAppWelcom
+﻿using Microsoft.Extensions.Logging.Abstractions;
+
+namespace MauiAppWelcom
 {
     public partial class MainPage : ContentPage
     {
@@ -9,17 +11,19 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
-            count=+5 ;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+            string nomUtilisateur = nomEntry.Text;
+            if (!string.IsNullOrEmpty(nomUtilisateur))
+            {
+                await DisplayAlert("Bienvenue", $"Bienvenue {nomUtilisateur} !", "OK");
+            }
             else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            {
+                await DisplayAlert("Bienvenue", "Veuillez taper votre nom !", "OK");
+            }
         }
+
     }
 
 }
